@@ -2,7 +2,15 @@ import z from "zod";
 
 export const loanReportSearchZodSchema = z
   .object({
-    employee: z.string("Employee must be a string").optional(),
+    employee: z
+      .string({
+        error: (issue) =>
+          issue.input === undefined
+            ? "Employee Id is required"
+            : "Employee Id must be a string",
+      })
+      .nonempty("Employee Id can't be blank"),
+
     startDate: z.date("Start date must be a date").optional(),
     endDate: z.date("End date must be a date").optional(),
   })

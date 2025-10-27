@@ -48,17 +48,11 @@ const SearchReport = () => {
     data: z.infer<typeof loanReportSearchZodSchema>
   ) => {
     try {
-      let search = {} as Partial<{
+      let search = { employeeId: data.employee } as Partial<{
         employeeId: string;
         startDate: string;
         endDate: string;
       }>;
-      if (data.employee) {
-        search = {
-          ...search,
-          employeeId: data.employee,
-        };
-      }
       if (data.startDate) {
         search = {
           ...search,
